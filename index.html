@@ -1,0 +1,44 @@
+<!doctype html>
+<!--
+  这个文件对应原版的 app/layout.tsx：
+    <html lang="zh-CN" data-theme="dark" className={inter.variable + jetbrainsMono.variable}>
+      <body className="antialiased">
+  字体变量改由 src/fonts.css 提供（内容就是 Next 构建产物里那份），效果一致。
+  下面那段脚本与原版 layout.tsx 里的 themeInitScript 逐字一致 —— 它保证"首屏之前"
+  就把主题定下来，浅色用户不会先闪一下深色。
+-->
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>实用工具大全 · 全能纯净在线工具箱</title>
+    <meta name="description" content="全能、纯净、高效的实用工具大全网站，内置 220+ 款实用工具（图片工坊、PDF全套件、数理计算、开发调试、安全加密、文本办公、生活工具），纯本地浏览器安全计算，零数据上传。" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230284c7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z'/></svg>" />
+    <style>
+      html, body { margin: 0; background: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      html[data-theme="light"], html[data-theme="light"] body { background: #f8fafc; }
+      html[data-theme="eye-care"], html[data-theme="eye-care"] body { background: #f4efe6; }
+      html[data-theme="dark"], html[data-theme="dark"] body { background: #0f172a; }
+      html[data-window]:not([data-window="main"]), html[data-window]:not([data-window="main"]) body { background: transparent; }
+    </style>
+    <script>
+      (function(){
+        var t='eye-care';
+        try{
+          var m=localStorage.getItem('furina-theme-mode');
+          var saved=localStorage.getItem('furina-theme');
+          if(m==='system') t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+          else if(m==='light'||m==='dark'||m==='eye-care') t=m;
+          else if(saved==='light'||saved==='dark'||saved==='eye-care') t=saved;
+        }catch(e){}
+        document.documentElement.setAttribute('data-theme',t);
+        var auxiliary=new URLSearchParams(location.search).get('window');
+        if(auxiliary) document.documentElement.setAttribute('data-window',auxiliary);
+      })();
+    </script>
+  </head>
+  <body class="antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
