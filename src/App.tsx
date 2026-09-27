@@ -51,7 +51,7 @@ class PageBoundary extends Component<{ children: ReactNode }, { error: Error | n
 function CurrentPage() {
   const pathname = usePathname();
 
-  if (pathname === "/" || pathname === "/favorites") return <HomePage />;
+  if (pathname === "/" || pathname === "/favorites" || pathname === "/index.html" || pathname === "") return <HomePage />;
   if (pathname === "/jobs") return <JobsPage />;
   if (pathname === "/portal/transfer") return <TransferPage />;
   if (pathname.startsWith("/tools/")) {

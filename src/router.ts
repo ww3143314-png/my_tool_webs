@@ -47,7 +47,9 @@ function subscribe(listener: Listener) {
 /** 当前路径（不含查询串），没有就是 "/" */
 export function getPathname(): string {
   if (typeof window === "undefined") return "/";
-  return window.location.pathname || "/";
+  const path = window.location.pathname || "/";
+  if (path === "/index.html" || path === "") return "/";
+  return path;
 }
 
 /** 当前查询串（含 "?"） */
